@@ -15,13 +15,16 @@ public class Sender{
 		
 	}
 
-	public void send(String s) {
+	public boolean send(String s) {
 		try {
 			c.s.getOutputStream().write(s.getBytes());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			this.s.clients.remove(c);
+			return true;
 		}
+		return false;
 	}
 	
 }

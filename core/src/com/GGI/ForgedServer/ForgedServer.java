@@ -1,18 +1,15 @@
 package com.GGI.ForgedServer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
-import com.badlogic.gdx.net.Socket;
 
 public class ForgedServer extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -22,9 +19,13 @@ public class ForgedServer extends ApplicationAdapter {
 	public ServerSocketHints hints = new ServerSocketHints();
 	public ServerSocket rServer;
 	public ServerSocket sServer;
-	
+	public Texture bg;
+	public SpriteBatch pic;
 	@Override
 	public void create() {
+		bg = new Texture(Gdx.files.internal("ForgedServer.png"));
+
+		 pic = new SpriteBatch();
 		rServer = Gdx.net.newServerSocket(Protocol.TCP, 4441, hints);
 		sServer = Gdx.net.newServerSocket(Protocol.TCP, 4442, hints);
 		
@@ -40,6 +41,14 @@ public class ForgedServer extends ApplicationAdapter {
 			//end listen and respond to clients
 			
 		}
+	
+	public void render(){
+		Gdx.gl.glClearColor(0,0,0,1);
+		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+		pic.begin();
+		pic.draw(bg,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		pic.end();
+	}
 		
 		
 		

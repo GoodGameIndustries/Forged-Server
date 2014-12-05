@@ -23,7 +23,9 @@ public class Reader implements Runnable{
 			try {
 				message = new BufferedReader(new InputStreamReader(c.r.getInputStream())).readLine();
 				System.out.println(message);
-				se.send("Received\n");
+				if(se.send("Received\n")){
+					break;
+				}
 			} catch (IOException e) {
 				
 			}
