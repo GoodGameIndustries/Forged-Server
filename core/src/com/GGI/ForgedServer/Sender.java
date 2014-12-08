@@ -17,6 +17,7 @@ public class Sender{
 
 	public boolean send(String s) {
 		try {
+			s+="\n";
 			c.s.getOutputStream().write(s.getBytes());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
