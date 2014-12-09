@@ -51,7 +51,7 @@ public class Reader implements Runnable{
 					if(!Gdx.files.local("/Players/"+breakDown[2]+"/account.txt").exists()){
 					FileHandle file = Gdx.files.local("/Players/"+breakDown[2]+"/account.txt");
 					file.writeString("account:"+breakDown[1]+":"+breakDown[2]+":"+breakDown[3],false);
-					if(se.send("created")){break;}
+					if(se.send("accountCreated")){break;}
 					}
 					else{
 						if(se.send("Error Creating")){break;}
