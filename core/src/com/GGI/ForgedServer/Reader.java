@@ -27,24 +27,34 @@ public class Reader implements Runnable{
 			try {
 				
 				message = new BufferedReader(new InputStreamReader(c.r.getInputStream())).readLine();
+				if(se.send(" ")){break;}
 				System.out.println("Reading");
 				if(message!=null){
 				System.out.println(message);
-				String[] breakDown = message.split(":");
+				String[] breakDown = new String[0];
+				try{
+				breakDown = message.split(":");
+				}
+				catch(ArrayIndexOutOfBoundsException e){
+					if(se.send("Invalid")){break;}
+				}
+				if(breakDown.length>2){
+				
 				if(breakDown[0].equals("login")){
 					if(Gdx.files.local("/Players/"+breakDown[1]+"/account.txt").exists()){
 					FileHandle file = Gdx.files.local("/Players/"+breakDown[1]+"/account.txt");
 					String[] text = file.readString().split(":");
 					if(breakDown[1].equals(text[2])&&breakDown[2].equals(text[3])){
-						if(se.send("Online")){break;}
+						if(se.send("Online:"+s.title+":"+s.mOTD)){break;}
 					}
 					else{
-					if(se.send("Invalid")){break;}
+						if(se.send("Invalid")){break;}
 					}
 					}
 					else{
-						if(se.send("No Account")){break;}
+						if(se.send("Invalid")){break;}
 					}
+					
 				}
 				
 				else if(breakDown[0].equals("createAccount")){
@@ -58,7 +68,10 @@ public class Reader implements Runnable{
 					}
 				}
 				}
-				
+				else{
+					if(se.send("Invalid")){break;}
+				}
+				}
 				//send statement with error check:  if(se.send("Received")){break;}
 			} catch (IOException e) {
 				
