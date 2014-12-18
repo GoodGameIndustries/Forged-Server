@@ -26,6 +26,7 @@ public class DBReader implements Runnable{
 				
 				//if statements go here
 			} catch (IOException e) {
+				
 				System.out.println("error");
 			}
 			

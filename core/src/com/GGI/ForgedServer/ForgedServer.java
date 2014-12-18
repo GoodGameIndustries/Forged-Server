@@ -41,6 +41,7 @@ public class ForgedServer extends ApplicationAdapter {
 		
 		
 		new Thread(new DBReader(this,rClient)).start();
+		send("connect");
 		// setup a server thread where we wait for incoming connections
 		// to the server
 		new Thread(new Connector(this)).start();

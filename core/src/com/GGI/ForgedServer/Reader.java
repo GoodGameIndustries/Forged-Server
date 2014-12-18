@@ -36,40 +36,27 @@ public class Reader implements Runnable{
 				breakDown = message.split(":");
 				}
 				catch(ArrayIndexOutOfBoundsException e){
-					if(se.send("Invalid")){break;}
+				//	if(se.send("Invalid")){break;}
 				}
 				if(breakDown.length>2){
 				
 				if(breakDown[0].equals("login")){
-					if(Gdx.files.local("/Players/"+breakDown[1]+"/account.txt").exists()){
-					FileHandle file = Gdx.files.local("/Players/"+breakDown[1]+"/account.txt");
-					String[] text = file.readString().split(":");
-					if(breakDown[1].equals(text[2])&&breakDown[2].equals(text[3])){
-						if(se.send("Online:"+s.title+":"+s.mOTD)){break;}
-					}
-					else{
-						if(se.send("Invalid")){break;}
-					}
-					}
-					else{
-						if(se.send("Invalid")){break;}
-					}
-					
+					//if(Gdx.files.local("/Players/"+breakDown[1]+"/account.txt").exists()){
+					//FileHandle file = Gdx.files.local("/Players/"+breakDown[1]+"/account.txt");
+					//String[] text = file.readString().split(":");
+					c.name=breakDown[1];
+					s.send(message);
 				}
 				
 				else if(breakDown[0].equals("createAccount")){
-					if(!Gdx.files.local("/Players/"+breakDown[2]+"/account.txt").exists()){
-					FileHandle file = Gdx.files.local("/Players/"+breakDown[2]+"/account.txt");
-					file.writeString("account:"+breakDown[1]+":"+breakDown[2]+":"+breakDown[3],false);
-					if(se.send("accountCreated")){break;}
-					}
-					else{
-						if(se.send("Error Creating")){break;}
-					}
+					//if(!Gdx.files.local("/Players/"+breakDown[2]+"/account.txt").exists()){
+					//FileHandle file = Gdx.files.local("/Players/"+breakDown[2]+"/account.txt");
+					//file.writeString("account:"+breakDown[1]+":"+breakDown[2]+":"+breakDown[3],false);
+					c.name=breakDown[2];
+					s.send(message);
 				}
-				}
-				else{
-					if(se.send("Invalid")){break;}
+				
+				
 				}
 				}
 				//send statement with error check:  if(se.send("Received")){break;}
@@ -80,6 +67,14 @@ public class Reader implements Runnable{
 		}
 		//return;
 		
+	}
+
+	public void login(String name){
+		c.name=name;
+		se.send("Online:"+s.title+":"+s.mOTD);
+	}
+	public void relay(String s){
+		se.send(s);
 	}
 	
 }
